@@ -5,6 +5,7 @@ import 'package:unamaps/app/common/inject/inject_dependecy.dart';
 import 'package:unamaps/app/my_app.dart';
 import 'package:unamaps/firebase_options.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterConfig.loadEnvVariables();
