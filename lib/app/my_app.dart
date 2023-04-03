@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:unamaps/app/common/utils/routes_apps.dart';
+import 'package:unamaps/app/features/home/presenter/home_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -6,25 +8,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Unamaps',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MapScreen(),
+      routes: {
+        RoutesAps.initalRouter: (context) => const HomeScreen(),
+      },
     );
-  }
-}
-
-class MapScreen extends StatefulWidget {
-  const MapScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MapScreen> createState() => _MapScreenState();
-}
-
-class _MapScreenState extends State<MapScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
