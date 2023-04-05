@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:unamaps/app/common/error/failure.dart';
-import 'package:unamaps/app/features/home/domain/repository/ihome_repository.dart';
+import 'package:unamaps/app/features/map/domain/repository/imap_repository.dart';
 
 class GetUserPositionUseCase {
-  final HomeRepositoryImpl repository;
+  final MapRepositoryImpl repository;
 
   GetUserPositionUseCase({required this.repository});
 

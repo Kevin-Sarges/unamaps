@@ -3,9 +3,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:unamaps/app/common/entity/local_entity.dart';
 import 'package:unamaps/app/common/error/common_errors.dart';
 import 'package:unamaps/app/common/model/local_model.dart';
-import 'package:unamaps/app/features/home/domain/datasource/ihome_datasource.dart';
+import 'package:unamaps/app/features/map/domain/datasource/imap_datasource.dart';
 
-class HomeDataSource implements HomeDataSourceImpl {
+class MapDataSource implements MapDataSourceImpl {
   final firebase = FirebaseFirestore.instance;
 
   @override
