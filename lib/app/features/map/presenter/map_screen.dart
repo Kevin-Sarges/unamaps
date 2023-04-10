@@ -1,9 +1,13 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:unamaps/app/common/utils/markers_maps.dart';
 import 'package:unamaps/app/features/map/presenter/controller/map_cubit.dart';
 import 'package:unamaps/app/features/map/presenter/controller/map_state.dart';
+import 'package:unamaps/app/features/map/presenter/widget/sala_widget.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -14,9 +18,47 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   final _cubit = GetIt.I.get<MapCubit>();
-  late GoogleMapController _controllerMap;
+  Set<Marker> markers = <Marker>{};
 
-  _onCreatedMap(GoogleMapController controller) {
+  late GoogleMapController _controllerMap;
+  late LatLng _tappedLocation;
+
+  loadLocais() {
+    final locais = MarkersMaps().locais;
+
+    locais.forEach((local) async {
+      markers.add(
+        Marker(
+          markerId: MarkerId(local.nomeLocal),
+          position: LatLng(
+            local.lat,
+            local.lon,
+          ),
+          icon: await BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(
+              size: Size(
+                5,
+                5,
+              ),
+            ),
+            local.marker,
+          ),
+          infoWindow: InfoWindow(
+            title: local.nomeLocal,
+            snippet: local.nomeLocal,
+          ),
+          onTap: () => {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) => SalaWidget(local: local),
+            ),
+          },
+        ),
+      );
+    });
+  }
+
+  void _onCreatedMap(GoogleMapController controller) {
     _controllerMap = controller;
   }
 
@@ -24,8 +66,8 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
 
-    _cubit.getLocalPosition();
     _cubit.getUserPosition();
+    loadLocais();
   }
 
   @override
@@ -52,28 +94,19 @@ class _MapScreenState extends State<MapScreen> {
             );
           }
 
-          if (state is MapLocalLatLon) {
-            final locais = state.local.map((map) {
-              return Marker(
-                markerId: MarkerId(map.nomeLocal),
-                position: LatLng(
-                  map.lat,
-                  map.lon,
-                ),
-              );
-            });
-
+          if (state is MapSucess) {
             return GoogleMap(
               mapType: MapType.normal,
-              initialCameraPosition: const CameraPosition(
+              myLocationEnabled: true,
+              initialCameraPosition: CameraPosition(
                 target: LatLng(
-                  -1.4388016,
-                  -48.4786402,
+                  state.lat,
+                  state.lon,
                 ),
                 zoom: 19,
               ),
               onMapCreated: _onCreatedMap,
-              markers: locais.toSet(),
+              markers: markers,
             );
           }
 

@@ -22,11 +22,11 @@ class _SplashScreenState extends State<SplashScreen> {
     const user = true;
 
     if (user == true) {
-      Future.delayed(const Duration(seconds: 3), () {
+      Future.delayed(const Duration(seconds: 2), () {
         Navigator.popAndPushNamed(context, RoutesAps.homeRouter);
       });
     } else {
-      Future.delayed(const Duration(seconds: 3), () {
+      Future.delayed(const Duration(seconds: 2), () {
         Navigator.popAndPushNamed(context, RoutesAps.mapRouter);
       });
     }
@@ -59,6 +59,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
               ),
+            ),
+            const SizedBox(height: 20),
+            const CircularProgressIndicator(
+              color: Colors.white,
             ),
           ],
         ),

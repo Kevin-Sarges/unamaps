@@ -20,6 +20,8 @@ class MapDataSource implements MapDataSourceImpl {
           lat: data['lat'],
           lon: data['lon'],
           nomeLocal: data['nomeLocal'],
+          marker: data['marker'],
+          foto: data['foto'],
         );
       }).toList();
 

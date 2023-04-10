@@ -5,6 +5,8 @@ class LocalModel extends LocalEntity {
     required super.lat,
     required super.lon,
     required super.nomeLocal,
+    required super.marker,
+    required super.foto,
   });
 
   factory LocalModel.fromJson(Map<String, dynamic> json) {
@@ -12,6 +14,8 @@ class LocalModel extends LocalEntity {
       lat: json['lat'] as double,
       lon: json['lon'] as double,
       nomeLocal: json['nomeLocal'] as String,
+      marker: json['marker'] as String,
+      foto: json['foto'] as String,
     );
   }
 }
