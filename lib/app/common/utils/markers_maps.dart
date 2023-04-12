@@ -4,9 +4,17 @@ import 'package:unamaps/app/common/model/local_model.dart';
 class MarkersMaps {
   final List<LocalEntity> _listLocal = [
     LocalModel(
-      lat: -1.4393632,
-      lon: -48.4781887,
+      lat: -1.4394619,
+      lon: -48.4782618,
       nomeLocal: 'L-101',
+      marker: 'assets/images/LAB.png',
+      foto:
+          'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/L-101.jpeg?alt=media&token=7ddb89ec-5e26-4375-9e10-6c4eb5f02483',
+    ),
+    LocalModel(
+      lat: -1.4393761,
+      lon: -48.4782729,
+      nomeLocal: 'L-102',
       marker: 'assets/images/LAB.png',
       foto:
           'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/L-101.jpeg?alt=media&token=7ddb89ec-5e26-4375-9e10-6c4eb5f02483',
@@ -20,8 +28,8 @@ class MarkersMaps {
           'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/L-103.jpeg?alt=media&token=d6c4abc4-9e0c-41b4-a3f1-fe26d55d0141',
     ),
     LocalModel(
-      lat: -1.4393372,
-      lon: -48.4779102,
+      lat: -1.4394465,
+      lon: -48.4780409,
       nomeLocal: 'L-104',
       marker: 'assets/images/LAB.png',
       foto:
@@ -36,56 +44,56 @@ class MarkersMaps {
           'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/L-105.jpeg?alt=media&token=73ea76f0-9995-4fe8-a589-e9000ecf28cd',
     ),
     LocalModel(
-      lat: -1.4393407,
-      lon: -48.4778978,
+      lat: -1.4393828,
+      lon: -48.4777991,
       nomeLocal: 'L-106',
       marker: 'assets/images/LAB.png',
       foto:
           'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/L-106.jpeg?alt=media&token=a5ce533c-9e10-465a-9cec-ce2dc0e91486',
     ),
     LocalModel(
-      lat: -1.4393375,
-      lon: -48.4778981,
+      lat: -1.4393298,
+      lon: -48.4778055,
       nomeLocal: 'L-107',
       marker: 'assets/images/LAB.png',
       foto:
           'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/L-107.jpeg?alt=media&token=b97d1fc0-a2ae-4fb1-825a-13da1cb593a3',
     ),
     LocalModel(
-      lat: -1.4393453,
-      lon: -48.4779181,
+      lat: -1.4394434,
+      lon: -48.4777767,
       nomeLocal: 'Elevador 1° andar bloco L',
       marker: 'assets/images/LAB.png',
       foto:
           'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/Elevador_1%C2%BAandar_bloco_L.jpeg?alt=media&token=df935947-9501-4dca-911a-05fee7fb807d',
     ),
     LocalModel(
-      lat: -1.4393321,
-      lon: -48.4778981,
+      lat: -1.4395339,
+      lon: -48.4778950,
       nomeLocal: 'Clínica de fonoaudiologia',
       marker: 'assets/images/SALA.png',
       foto:
           'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/Cl%C3%ADnica_de_fonoaudiologia.jpeg?alt=media&token=fb4601b7-2b78-4d0f-a4a9-b79fa196790b',
     ),
     LocalModel(
-      lat: -1.4393383,
-      lon: -48.4779138,
+      lat: -1.4394210,
+      lon: -48.4778766,
       nomeLocal: 'Sala de apoio dos laboratórios',
       marker: 'assets/images/LAB.png',
       foto:
           'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/Sala_de_apoio_aos_LABs.jpeg?alt=media&token=470ef7bd-ca64-4254-9609-74fc0d6323d3',
     ),
     LocalModel(
-      lat: -1.4393376,
-      lon: -48.4779104,
+      lat: -1.4393932,
+      lon: -48.4778038,
       nomeLocal: 'Banheiros F',
       marker: 'assets/images/banheiro_F.png',
       foto:
           'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/Banheiro_F_1%C2%BAandar_bloco_L.jpeg?alt=media&token=d9ad3c80-9389-4fa0-829b-0fac052f0cf5',
     ),
     LocalModel(
-      lat: -1.4393406,
-      lon: -48.477912,
+      lat: -1.4394190,
+      lon: -48.4778032,
       nomeLocal: 'Banheiros M',
       marker: 'assets/images/banheiro_M.png',
       foto:

@@ -21,7 +21,6 @@ class _MapScreenState extends State<MapScreen> {
   Set<Marker> markers = <Marker>{};
 
   late GoogleMapController _controllerMap;
-  late LatLng _tappedLocation;
 
   loadLocais() {
     final locais = MarkersMaps().locais;
@@ -100,6 +99,8 @@ class _MapScreenState extends State<MapScreen> {
               myLocationEnabled: true,
               initialCameraPosition: CameraPosition(
                 target: LatLng(
+                  // -1.4392591,
+                  // -48.4782156,
                   state.lat,
                   state.lon,
                 ),
