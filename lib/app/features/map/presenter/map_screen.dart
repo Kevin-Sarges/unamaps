@@ -239,10 +239,10 @@ class _MapScreenState extends State<MapScreen> {
                 GoogleMap(
                   mapType: MapType.normal,
                   myLocationEnabled: true,
-                  initialCameraPosition: const CameraPosition(
+                  initialCameraPosition: CameraPosition(
                     target: LatLng(
-                      -1.4392591,
-                      -48.4782156,
+                      state.lat,
+                      state.lon,
                     ),
                     zoom: 19,
                   ),
