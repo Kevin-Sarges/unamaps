@@ -18,13 +18,12 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   final _cubit = GetIt.I.get<MapCubit>();
+  final locais = MarkersMaps().locais;
   Set<Marker> markers = <Marker>{};
 
   late GoogleMapController _controllerMap;
 
-  loadLocais() {
-    final locais = MarkersMaps().locais;
-
+  void loadLocais() {
     locais.forEach((local) async {
       markers.add(
         Marker(
@@ -57,6 +56,42 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
+  void filterLocal(String tipoLocal) async {
+    final filter =
+        locais.where((local) => local.tipoLocal == tipoLocal).toList();
+
+    for (var local in filter) {
+      markers.add(
+        Marker(
+          markerId: MarkerId(local.nomeLocal),
+          position: LatLng(
+            local.lat,
+            local.lon,
+          ),
+          icon: await BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(
+              size: Size(
+                5,
+                5,
+              ),
+            ),
+            local.marker,
+          ),
+          infoWindow: InfoWindow(
+            title: local.nomeLocal,
+            snippet: local.nomeLocal,
+          ),
+          onTap: () => {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) => SalaWidget(local: local),
+            ),
+          },
+        ),
+      );
+    }
+  }
+
   void _onCreatedMap(GoogleMapController controller) {
     _controllerMap = controller;
   }
@@ -76,6 +111,111 @@ class _MapScreenState extends State<MapScreen> {
         title: const Text('1º Andar'),
         backgroundColor: const Color.fromRGBO(17, 104, 20, 1),
       ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(17, 104, 20, 1),
+              ),
+              child: Text(
+                'Escolha um local',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                ),
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                setState(() {
+                  markers.clear();
+                  loadLocais();
+                });
+                Navigator.pop(context);
+                Builder(
+                  builder: (context) {
+                    Scaffold.of(context).closeEndDrawer();
+                    return const SizedBox.shrink();
+                  },
+                );
+              },
+              title: const Text('Todos'),
+              leading: const Icon(Icons.add_location),
+            ),
+            ListTile(
+              onTap: () {
+                setState(() {
+                  markers.clear();
+                  filterLocal('Banheiros');
+                });
+                Navigator.pop(context);
+                Builder(
+                  builder: (context) {
+                    Scaffold.of(context).closeEndDrawer();
+                    return const SizedBox.shrink();
+                  },
+                );
+              },
+              title: const Text('Banheiros'),
+              leading: const Icon(Icons.accessibility),
+            ),
+            ListTile(
+              onTap: () {
+                setState(() {
+                  markers.clear();
+                  filterLocal('Lab');
+                });
+                Navigator.pop(context);
+                Builder(
+                  builder: (context) {
+                    Scaffold.of(context).closeEndDrawer();
+                    return const SizedBox.shrink();
+                  },
+                );
+              },
+              title: const Text('Labs'),
+              leading: const Icon(Icons.school),
+            ),
+            ListTile(
+              onTap: () {
+                setState(() {
+                  markers.clear();
+                  filterLocal('Elevador');
+                });
+                Navigator.pop(context);
+                Builder(
+                  builder: (context) {
+                    Scaffold.of(context).closeEndDrawer();
+                    return const SizedBox.shrink();
+                  },
+                );
+              },
+              title: const Text('Elevador'),
+              leading: const Icon(Icons.elevator),
+            ),
+            const SizedBox(width: 5),
+            ListTile(
+              onTap: () {
+                setState(() {
+                  markers.clear();
+                  filterLocal('Clínica');
+                });
+                Navigator.pop(context);
+                Builder(
+                  builder: (context) {
+                    Scaffold.of(context).closeEndDrawer();
+                    return const SizedBox.shrink();
+                  },
+                );
+              },
+              title: const Text('Clínica'),
+              leading: const Icon(Icons.medical_services_outlined),
+            ),
+          ],
+        ),
+      ),
       body: BlocBuilder<MapCubit, MapState>(
         bloc: _cubit,
         builder: (context, state) {
@@ -94,20 +234,22 @@ class _MapScreenState extends State<MapScreen> {
           }
 
           if (state is MapSucess) {
-            return GoogleMap(
-              mapType: MapType.normal,
-              myLocationEnabled: true,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(
-                  // -1.4392591,
-                  // -48.4782156,
-                  state.lat,
-                  state.lon,
+            return Stack(
+              children: [
+                GoogleMap(
+                  mapType: MapType.normal,
+                  myLocationEnabled: true,
+                  initialCameraPosition: const CameraPosition(
+                    target: LatLng(
+                      -1.4392591,
+                      -48.4782156,
+                    ),
+                    zoom: 19,
+                  ),
+                  onMapCreated: _onCreatedMap,
+                  markers: markers,
                 ),
-                zoom: 19,
-              ),
-              onMapCreated: _onCreatedMap,
-              markers: markers,
+              ],
             );
           }
 
