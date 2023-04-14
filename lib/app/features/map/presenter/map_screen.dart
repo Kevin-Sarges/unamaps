@@ -159,7 +159,7 @@ class _MapScreenState extends State<MapScreen> {
                 );
               },
               title: const Text('Banheiros'),
-              leading: const Icon(Icons.accessibility),
+              leading: const Icon(Icons.wc),
             ),
             ListTile(
               onTap: () {

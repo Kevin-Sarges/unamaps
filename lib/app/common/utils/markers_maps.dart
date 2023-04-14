@@ -10,7 +10,7 @@ class MarkersMaps {
       tipoLocal: 'Lab',
       marker: 'assets/images/LAB.png',
       foto:
-          'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/L-101.jpeg?alt=media&token=7ddb89ec-5e26-4375-9e10-6c4eb5f02483',
+          'https://firebasestorage.googleapis.com/v0/b/imagens-85754.appspot.com/o/L-102.jpeg?alt=media&token=7ddb89ec-5e26-4375-9e10-6c4eb5f02483',
     ),
     LocalModel(
       lat: -1.4393761,
