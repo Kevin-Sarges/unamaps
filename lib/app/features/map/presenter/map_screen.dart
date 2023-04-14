@@ -219,7 +219,7 @@ class _MapScreenState extends State<MapScreen> {
       body: BlocBuilder<MapCubit, MapState>(
         bloc: _cubit,
         builder: (context, state) {
-          if (state is MapLoadgin) {
+          if (state is MapLoading) {
             return const Center(
               child: CircularProgressIndicator(
                 color: Color.fromRGBO(17, 104, 20, 1),
@@ -233,7 +233,7 @@ class _MapScreenState extends State<MapScreen> {
             );
           }
 
-          if (state is MapSucess) {
+          if (state is MapSuccess) {
             return Stack(
               children: [
                 GoogleMap(

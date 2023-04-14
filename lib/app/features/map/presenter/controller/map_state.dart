@@ -5,19 +5,14 @@ abstract class MapState {}
 
 class MapInitial extends MapState {}
 
-class MapLoadgin extends MapState {}
+class MapLoading extends MapState {}
 
-class MapLocalLatLon extends MapState {
-  List<LocalEntity> local;
-
-  MapLocalLatLon(this.local);
-}
-
-class MapSucess extends MapState {
+class MapSuccess extends MapState {
   double lat;
   double lon;
+  List<LocalEntity> local;
 
-  MapSucess(this.lat, this.lon);
+  MapSuccess(this.lat, this.lon, this.local);
 }
 
 class MapError extends MapState {

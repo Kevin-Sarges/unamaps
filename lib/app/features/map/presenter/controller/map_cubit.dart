@@ -12,25 +12,24 @@ class MapCubit extends Cubit<MapState> {
   final GetLocalPositionUseCase getLocalPositionUseCase;
   final GetUserPositionUseCase getUserPositionUseCase;
 
-  Future<void> getLocalPosition() async {
-    emit(MapLoadgin());
-
-    final result = await getLocalPositionUseCase();
-
-    emit(result.fold(
-      (erro) => MapError(erro),
-      (sucess) => MapLocalLatLon(sucess),
-    ));
-  }
-
   Future<void> getUserPosition() async {
-    emit(MapLoadgin());
+    emit(MapLoading());
 
-    final result = await getUserPositionUseCase();
+    final result1 = await getUserPositionUseCase();
+    final result2 = await getLocalPositionUseCase();
 
-    emit(result.fold(
-      (erro) => MapError(erro),
-      (sucess) => MapSucess(sucess.latitude, sucess.longitude),
-    ));
+    result1.fold(
+      (erro) => emit(MapError(erro)),
+      (sucess) => result2.fold(
+        (l) => emit(MapError(l)),
+        (locais) => emit(
+          MapSuccess(
+            sucess.latitude,
+            sucess.longitude,
+            locais,
+          ),
+        ),
+      ),
+    );
   }
 }

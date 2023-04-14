@@ -11,7 +11,11 @@ class MapDataSource implements MapDataSourceImpl {
   @override
   Future<List<LocalEntity>> getLatLonLocal() async {
     try {
-      final db = await firebase.collection('locais').get();
+      final db = await firebase
+          .collection('locais')
+          .doc('1º Andar')
+          .collection('locais')
+          .get();
 
       final result = db.docs.map((doc) {
         final data = doc.data();
