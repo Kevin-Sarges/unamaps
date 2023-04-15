@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:unamaps/app/common/utils/markers_maps.dart';
 import 'package:unamaps/app/features/map/presenter/controller/map_cubit.dart';
 import 'package:unamaps/app/features/map/presenter/controller/map_state.dart';
 import 'package:unamaps/app/features/map/presenter/widget/sala_widget.dart';
@@ -18,79 +17,9 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   final _cubit = GetIt.I.get<MapCubit>();
-  final locais = MarkersMaps().locais;
   Set<Marker> markers = <Marker>{};
 
   late GoogleMapController _controllerMap;
-
-  void loadLocais() {
-    locais.forEach((local) async {
-      markers.add(
-        Marker(
-          markerId: MarkerId(local.nomeLocal),
-          position: LatLng(
-            local.lat,
-            local.lon,
-          ),
-          icon: await BitmapDescriptor.fromAssetImage(
-            const ImageConfiguration(
-              size: Size(
-                5,
-                5,
-              ),
-            ),
-            local.marker,
-          ),
-          infoWindow: InfoWindow(
-            title: local.nomeLocal,
-            snippet: local.nomeLocal,
-          ),
-          onTap: () => {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) => SalaWidget(local: local),
-            ),
-          },
-        ),
-      );
-    });
-  }
-
-  void filterLocal(String tipoLocal) async {
-    final filter =
-        locais.where((local) => local.tipoLocal == tipoLocal).toList();
-
-    for (var local in filter) {
-      markers.add(
-        Marker(
-          markerId: MarkerId(local.nomeLocal),
-          position: LatLng(
-            local.lat,
-            local.lon,
-          ),
-          icon: await BitmapDescriptor.fromAssetImage(
-            const ImageConfiguration(
-              size: Size(
-                5,
-                5,
-              ),
-            ),
-            local.marker,
-          ),
-          infoWindow: InfoWindow(
-            title: local.nomeLocal,
-            snippet: local.nomeLocal,
-          ),
-          onTap: () => {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) => SalaWidget(local: local),
-            ),
-          },
-        ),
-      );
-    }
-  }
 
   void _onCreatedMap(GoogleMapController controller) {
     _controllerMap = controller;
@@ -101,7 +30,6 @@ class _MapScreenState extends State<MapScreen> {
     super.initState();
 
     _cubit.getUserPosition();
-    loadLocais();
   }
 
   @override
@@ -129,9 +57,9 @@ class _MapScreenState extends State<MapScreen> {
             ),
             ListTile(
               onTap: () {
+                markers.clear();
                 setState(() {
-                  markers.clear();
-                  loadLocais();
+                  _cubit.getUserPosition();
                 });
                 Navigator.pop(context);
                 Builder(
@@ -146,9 +74,9 @@ class _MapScreenState extends State<MapScreen> {
             ),
             ListTile(
               onTap: () {
+                markers.clear();
                 setState(() {
-                  markers.clear();
-                  filterLocal('Banheiros');
+                  _cubit.filter('Banheiros');
                 });
                 Navigator.pop(context);
                 Builder(
@@ -163,9 +91,9 @@ class _MapScreenState extends State<MapScreen> {
             ),
             ListTile(
               onTap: () {
+                markers.clear();
                 setState(() {
-                  markers.clear();
-                  filterLocal('Lab');
+                  _cubit.filter('Lab');
                 });
                 Navigator.pop(context);
                 Builder(
@@ -180,9 +108,9 @@ class _MapScreenState extends State<MapScreen> {
             ),
             ListTile(
               onTap: () {
+                markers.clear();
                 setState(() {
-                  markers.clear();
-                  filterLocal('Elevador');
+                  _cubit.filter('Elevador');
                 });
                 Navigator.pop(context);
                 Builder(
@@ -198,9 +126,9 @@ class _MapScreenState extends State<MapScreen> {
             const SizedBox(width: 5),
             ListTile(
               onTap: () {
+                markers.clear();
                 setState(() {
-                  markers.clear();
-                  filterLocal('Clínica');
+                  _cubit.filter('Clínica');
                 });
                 Navigator.pop(context);
                 Builder(
@@ -234,15 +162,50 @@ class _MapScreenState extends State<MapScreen> {
           }
 
           if (state is MapSuccess) {
+            final locais = state.local;
+
+            locais.forEach((local) async {
+              markers.add(
+                Marker(
+                  markerId: MarkerId(local.nomeLocal),
+                  position: LatLng(
+                    local.lat,
+                    local.lon,
+                  ),
+                  icon: await BitmapDescriptor.fromAssetImage(
+                    const ImageConfiguration(
+                      size: Size(
+                        5,
+                        5,
+                      ),
+                    ),
+                    local.marker,
+                  ),
+                  infoWindow: InfoWindow(
+                    title: local.nomeLocal,
+                    snippet: local.nomeLocal,
+                  ),
+                  onTap: () => {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => SalaWidget(local: local),
+                    ),
+                  },
+                ),
+              );
+
+              setState(() {});
+            });
+
             return Stack(
               children: [
                 GoogleMap(
                   mapType: MapType.normal,
                   myLocationEnabled: true,
-                  initialCameraPosition: CameraPosition(
+                  initialCameraPosition: const CameraPosition(
                     target: LatLng(
-                      state.lat,
-                      state.lon,
+                      -1.4389719,
+                      -48.4786415,
                     ),
                     zoom: 19,
                   ),

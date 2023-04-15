@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:unamaps/app/common/entity/local_entity.dart';
 import 'package:unamaps/app/common/error/common_errors.dart';
 import 'package:unamaps/app/common/model/local_model.dart';
@@ -7,6 +8,7 @@ import 'package:unamaps/app/features/map/domain/datasource/imap_datasource.dart'
 
 class MapDataSource implements MapDataSourceImpl {
   final firebase = FirebaseFirestore.instance;
+  Set<Marker> markers = <Marker>{};
 
   @override
   Future<List<LocalEntity>> getLatLonLocal() async {
@@ -55,6 +57,35 @@ class MapDataSource implements MapDataSourceImpl {
 
       return local;
     } on PositionUpdateException catch (e) {
+      throw CommonDesconhecidoError(message: e);
+    }
+  }
+
+  @override
+  Future<List<LocalEntity>> filterLocais(String tipoLocal) async {
+    try {
+      final db = await firebase
+          .collection('locais')
+          .doc('1º Andar')
+          .collection('locais')
+          .where('tipoLocal', isEqualTo: tipoLocal)
+          .get();
+
+      final result = db.docs.map((doc) {
+        final data = doc.data();
+
+        return LocalModel(
+          lat: data['lat'],
+          lon: data['lon'],
+          nomeLocal: data['nomeLocal'],
+          tipoLocal: data['tipoLocal'],
+          marker: data['marker'],
+          foto: data['foto'],
+        );
+      }).toList();
+
+      return result;
+    } on FirebaseException catch (e) {
       throw CommonDesconhecidoError(message: e);
     }
   }
