@@ -15,11 +15,11 @@ class MapCubit extends Cubit<MapState> {
   final GetUserPositionUseCase getUserPositionUseCase;
   final FilterLocalUseCase filterLocalUseCase;
 
-  Future<void> getUserPosition() async {
+  Future<void> getUserPosition(String andar) async {
     emit(MapLoading());
 
     final result1 = await getUserPositionUseCase();
-    final result2 = await getLocalPositionUseCase();
+    final result2 = await getLocalPositionUseCase(andar);
 
     result1.fold(
       (erro) => emit(MapError(erro)),
@@ -36,11 +36,11 @@ class MapCubit extends Cubit<MapState> {
     );
   }
 
-  Future<void> filter(String tipoLocal) async {
+  Future<void> filter(String tipoLocal, String andar) async {
     emit(MapLoading());
 
     final result1 = await getUserPositionUseCase();
-    final result2 = await filterLocalUseCase(tipoLocal);
+    final result2 = await filterLocalUseCase(tipoLocal, andar);
 
     result1.fold(
       (erro) => emit(MapError(erro)),

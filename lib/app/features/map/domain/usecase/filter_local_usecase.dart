@@ -8,7 +8,10 @@ class FilterLocalUseCase {
 
   FilterLocalUseCase({required this.repository});
 
-  Future<Either<Failure, List<LocalEntity>>> call(String tipoLocal) async {
-    return await repository.filterLocais(tipoLocal);
+  Future<Either<Failure, List<LocalEntity>>> call(
+    String tipoLocal,
+    String andar,
+  ) async {
+    return await repository.filterLocais(tipoLocal, andar);
   }
 }

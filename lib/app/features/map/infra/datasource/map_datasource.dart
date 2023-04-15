@@ -11,11 +11,11 @@ class MapDataSource implements MapDataSourceImpl {
   Set<Marker> markers = <Marker>{};
 
   @override
-  Future<List<LocalEntity>> getLatLonLocal() async {
+  Future<List<LocalEntity>> getLatLonLocal(String andar) async {
     try {
       final db = await firebase
-          .collection('locais')
-          .doc('1º Andar')
+          .collection('unama')
+          .doc(andar)
           .collection('locais')
           .get();
 
@@ -62,11 +62,11 @@ class MapDataSource implements MapDataSourceImpl {
   }
 
   @override
-  Future<List<LocalEntity>> filterLocais(String tipoLocal) async {
+  Future<List<LocalEntity>> filterLocais(String tipoLocal, String andar) async {
     try {
       final db = await firebase
-          .collection('locais')
-          .doc('1º Andar')
+          .collection('unama')
+          .doc(andar)
           .collection('locais')
           .where('tipoLocal', isEqualTo: tipoLocal)
           .get();

@@ -9,7 +9,9 @@ import 'package:unamaps/app/features/map/presenter/controller/map_state.dart';
 import 'package:unamaps/app/features/map/presenter/widget/sala_widget.dart';
 
 class MapScreen extends StatefulWidget {
-  const MapScreen({Key? key}) : super(key: key);
+  const MapScreen({Key? key, required this.andar}) : super(key: key);
+
+  final String andar;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -29,14 +31,14 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
 
-    _cubit.getUserPosition();
+    _cubit.getUserPosition(widget.andar);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('1º Andar'),
+        title: Text(widget.andar),
         backgroundColor: const Color.fromRGBO(17, 104, 20, 1),
       ),
       endDrawer: Drawer(
@@ -59,7 +61,7 @@ class _MapScreenState extends State<MapScreen> {
               onTap: () {
                 markers.clear();
                 setState(() {
-                  _cubit.getUserPosition();
+                  _cubit.getUserPosition(widget.andar);
                 });
                 Navigator.pop(context);
                 Builder(
@@ -76,7 +78,7 @@ class _MapScreenState extends State<MapScreen> {
               onTap: () {
                 markers.clear();
                 setState(() {
-                  _cubit.filter('Banheiros');
+                  _cubit.filter('Banheiros', widget.andar);
                 });
                 Navigator.pop(context);
                 Builder(
@@ -93,7 +95,7 @@ class _MapScreenState extends State<MapScreen> {
               onTap: () {
                 markers.clear();
                 setState(() {
-                  _cubit.filter('Lab');
+                  _cubit.filter('Lab', widget.andar);
                 });
                 Navigator.pop(context);
                 Builder(
@@ -110,7 +112,7 @@ class _MapScreenState extends State<MapScreen> {
               onTap: () {
                 markers.clear();
                 setState(() {
-                  _cubit.filter('Elevador');
+                  _cubit.filter('Elevador', widget.andar);
                 });
                 Navigator.pop(context);
                 Builder(
@@ -128,7 +130,7 @@ class _MapScreenState extends State<MapScreen> {
               onTap: () {
                 markers.clear();
                 setState(() {
-                  _cubit.filter('Clínica');
+                  _cubit.filter('Clínica', widget.andar);
                 });
                 Navigator.pop(context);
                 Builder(
@@ -183,7 +185,7 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                   infoWindow: InfoWindow(
                     title: local.nomeLocal,
-                    snippet: local.nomeLocal,
+                    snippet: local.tipoLocal,
                   ),
                   onTap: () => {
                     showModalBottomSheet(
@@ -202,10 +204,10 @@ class _MapScreenState extends State<MapScreen> {
                 GoogleMap(
                   mapType: MapType.normal,
                   myLocationEnabled: true,
-                  initialCameraPosition: const CameraPosition(
+                  initialCameraPosition:  CameraPosition(
                     target: LatLng(
-                      -1.4389719,
-                      -48.4786415,
+                      state.lat,
+                      state.lon,
                     ),
                     zoom: 19,
                   ),

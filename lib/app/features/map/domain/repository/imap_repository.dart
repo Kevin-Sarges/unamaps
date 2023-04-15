@@ -5,6 +5,9 @@ import 'package:unamaps/app/common/error/failure.dart';
 
 abstract class MapRepositoryImpl {
   Future<Either<Failure, Position>> getLatLonUser();
-  Future<Either<Failure, List<LocalEntity>>> getLatLonLocal();
-  Future<Either<Failure, List<LocalEntity>>> filterLocais(String tipoLocal);
+  Future<Either<Failure, List<LocalEntity>>> getLatLonLocal(String andar);
+  Future<Either<Failure, List<LocalEntity>>> filterLocais(
+    String tipoLocal,
+    String andar,
+  );
 }

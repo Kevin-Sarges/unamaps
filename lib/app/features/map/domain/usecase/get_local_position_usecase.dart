@@ -8,7 +8,7 @@ class GetLocalPositionUseCase {
 
   GetLocalPositionUseCase({required this.repository});
 
-  Future<Either<Failure, List<LocalEntity>>> call() async {
-    return await repository.getLatLonLocal();
+  Future<Either<Failure, List<LocalEntity>>> call(String andar) async {
+    return await repository.getLatLonLocal(andar);
   }
 }
