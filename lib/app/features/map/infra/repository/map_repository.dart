@@ -31,4 +31,16 @@ class MapRepository implements MapRepositoryImpl {
       return Left(e);
     }
   }
+
+  @override
+  Future<Either<Failure, List<LocalEntity>>> filterLocais(
+      String tipoLocal) async {
+    try {
+      final result = await dataSource.filterLocais(tipoLocal);
+
+      return Right(result);
+    } on Failure catch (e) {
+      return Left(e);
+    }
+  }
 }
