@@ -26,7 +26,7 @@ class AndaresWidget extends StatelessWidget {
         height: 50,
         decoration: BoxDecoration(
           color: const Color.fromRGBO(17, 104, 20, 1),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
           child: Text(

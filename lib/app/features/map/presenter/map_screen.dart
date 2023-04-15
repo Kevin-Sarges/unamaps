@@ -1,9 +1,10 @@
-// ignore_for_file: avoid_function_literals_in_foreach_calls
+// ignore_for_file: avoid_function_literals_in_foreach_calls, unused_field
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:unamaps/app/common/utils/colors_app.dart';
 import 'package:unamaps/app/features/map/presenter/controller/map_cubit.dart';
 import 'package:unamaps/app/features/map/presenter/controller/map_state.dart';
 import 'package:unamaps/app/features/map/presenter/widget/sala_widget.dart';
@@ -39,7 +40,7 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.andar),
-        backgroundColor: const Color.fromRGBO(17, 104, 20, 1),
+        backgroundColor: ColorsApp.green100,
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -204,7 +205,7 @@ class _MapScreenState extends State<MapScreen> {
                 GoogleMap(
                   mapType: MapType.normal,
                   myLocationEnabled: true,
-                  initialCameraPosition:  CameraPosition(
+                  initialCameraPosition: CameraPosition(
                     target: LatLng(
                       state.lat,
                       state.lon,

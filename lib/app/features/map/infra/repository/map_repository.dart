@@ -1,6 +1,6 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:unamaps/app/common/error/failure.dart';
 import 'package:unamaps/app/common/entity/local_entity.dart';
-import 'package:geolocator_platform_interface/src/models/position.dart';
 import 'package:dartz/dartz.dart';
 import 'package:unamaps/app/features/map/domain/datasource/imap_datasource.dart';
 import 'package:unamaps/app/features/map/domain/repository/imap_repository.dart';
