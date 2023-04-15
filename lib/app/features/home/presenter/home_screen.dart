@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:unamaps/app/common/utils/colors_app.dart';
 import 'package:unamaps/app/features/home/presenter/controller/home_cubit.dart';
 import 'package:unamaps/app/features/home/presenter/controller/home_state.dart';
 import 'package:unamaps/app/features/home/presenter/widgets/andares_widget.dart';
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Selecione seu andar'),
-        backgroundColor: const Color.fromRGBO(17, 104, 20, 1),
+        backgroundColor: ColorsApp.green100,
       ),
       body: BlocBuilder(
         bloc: _cubit,
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (state is HomeLoading) {
             return const Center(
               child: CircularProgressIndicator(
-                color: Colors.green,
+                color: ColorsApp.green150,
               ),
             );
           }
@@ -53,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return Center(
               child: ListView.separated(
                 itemCount: state.andares.length,
-                padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+                padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
                 itemBuilder: (context, index) {
                   return AndaresWidget(
                     width: width,
