@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:unamaps/app/features/home/presenter/controller/home_cubit.dart';
+import 'package:unamaps/app/features/home/presenter/controller/home_state.dart';
 import 'package:unamaps/app/features/home/presenter/widgets/andares_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,7 +13,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _cubit = GetIt.I.get<HomeCubit>();
   final space = const SizedBox(height: 10);
+
+  @override
+  void initState() {
+    super.initState();
+
+    _cubit.listAndares();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +29,46 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Andares'),
+        title: const Text('Selecione seu andar'),
         backgroundColor: const Color.fromRGBO(17, 104, 20, 1),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AndaresWidget(
-              width: width,
-              text: '1º Andar',
-            ),
-          ],
-        ),
+      body: BlocBuilder(
+        bloc: _cubit,
+        builder: (context, state) {
+          if (state is HomeLoading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.green,
+              ),
+            );
+          }
+
+          if (state is HomeError) {
+            return Center(
+              child: Text(state.error.errorMessage),
+            );
+          }
+
+          if (state is HomeSuccess) {
+            return Center(
+              child: ListView.separated(
+                itemCount: state.andares.length,
+                padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+                itemBuilder: (context, index) {
+                  return AndaresWidget(
+                    width: width,
+                    text: state.andares[index].andar,
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(),
+              ),
+            );
+          }
+
+          return Container(
+            color: Colors.red,
+          );
+        },
       ),
     );
   }

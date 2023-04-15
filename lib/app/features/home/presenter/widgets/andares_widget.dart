@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unamaps/app/common/utils/routes_apps.dart';
+import 'package:unamaps/app/features/map/presenter/map_screen.dart';
 
 class AndaresWidget extends StatelessWidget {
   const AndaresWidget({
@@ -15,7 +15,11 @@ class AndaresWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, RoutesAps.mapRouter);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MapScreen(andar: text),
+            ));
       },
       child: Container(
         width: width * 0.3,

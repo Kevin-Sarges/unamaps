@@ -11,9 +11,10 @@ class MapRepository implements MapRepositoryImpl {
   MapRepository({required this.dataSource});
 
   @override
-  Future<Either<Failure, List<LocalEntity>>> getLatLonLocal() async {
+  Future<Either<Failure, List<LocalEntity>>> getLatLonLocal(
+      String andar) async {
     try {
-      final result = await dataSource.getLatLonLocal();
+      final result = await dataSource.getLatLonLocal(andar);
 
       return Right(result);
     } on Failure catch (e) {
@@ -34,9 +35,11 @@ class MapRepository implements MapRepositoryImpl {
 
   @override
   Future<Either<Failure, List<LocalEntity>>> filterLocais(
-      String tipoLocal) async {
+    String tipoLocal,
+    String andar,
+  ) async {
     try {
-      final result = await dataSource.filterLocais(tipoLocal);
+      final result = await dataSource.filterLocais(tipoLocal, andar);
 
       return Right(result);
     } on Failure catch (e) {

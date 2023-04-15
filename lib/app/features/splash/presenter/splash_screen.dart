@@ -19,17 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void checkSignedIn(BuildContext ctx) async {
-    const user = true;
-
-    if (user == true) {
-      Future.delayed(const Duration(seconds: 2), () {
-        Navigator.popAndPushNamed(context, RoutesAps.homeRouter);
-      });
-    } else {
-      Future.delayed(const Duration(seconds: 2), () {
-        Navigator.popAndPushNamed(context, RoutesAps.mapRouter);
-      });
-    }
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.popAndPushNamed(context, RoutesAps.homeRouter);
+    });
   }
 
   @override
