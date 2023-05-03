@@ -34,7 +34,7 @@ class MapDataSource implements MapDataSourceImpl {
 
       return result;
     } on FirebaseException catch (e) {
-      throw CommonDesconhecidoError(message: e);
+      throw CommonDesconhecidoError(message: e.message);
     }
   }
 
@@ -57,7 +57,7 @@ class MapDataSource implements MapDataSourceImpl {
 
       return local;
     } on PositionUpdateException catch (e) {
-      throw CommonDesconhecidoError(message: e);
+      throw CommonDesconhecidoError(message: e.message);
     }
   }
 
@@ -86,7 +86,7 @@ class MapDataSource implements MapDataSourceImpl {
 
       return result;
     } on FirebaseException catch (e) {
-      throw CommonDesconhecidoError(message: e);
+      throw CommonDesconhecidoError(message: e.message);
     }
   }
 }

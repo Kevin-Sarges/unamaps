@@ -18,7 +18,7 @@ class HomeDataSource implements HomeDataSourceImpl {
 
       return result;
     } on FirebaseException catch (e) {
-      throw CommonDesconhecidoError(message: e);
+      throw CommonDesconhecidoError(message: e.message);
     }
   }
 }
