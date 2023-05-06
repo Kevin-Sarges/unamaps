@@ -167,56 +167,67 @@ class _MapScreenState extends State<MapScreen> {
           if (state is MapSuccess) {
             final locais = state.local;
 
-            locais.forEach((local) async {
-              markers.add(
-                Marker(
-                  markerId: MarkerId(local.nomeLocal),
-                  position: LatLng(
-                    local.lat,
-                    local.lon,
+            if (locais.isEmpty) {
+              return const Center(
+                child: Text(
+                  'Nenhum local salvo no momento !!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
-                  icon: await BitmapDescriptor.fromAssetImage(
-                    const ImageConfiguration(
-                      size: Size(
-                        5,
-                        5,
-                      ),
-                    ),
-                    local.marker,
-                  ),
-                  infoWindow: InfoWindow(
-                    title: local.nomeLocal,
-                    snippet: local.tipoLocal,
-                  ),
-                  onTap: () => {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => SalaWidget(local: local),
-                    ),
-                  },
                 ),
               );
-
-              setState(() {});
-            });
-
-            return Stack(
-              children: [
-                GoogleMap(
-                  mapType: MapType.normal,
-                  myLocationEnabled: true,
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(
-                      state.lat,
-                      state.lon,
+            } else {
+              locais.forEach((local) async {
+                markers.add(
+                  Marker(
+                    markerId: MarkerId(local.nomeLocal),
+                    position: LatLng(
+                      local.lat,
+                      local.lon,
                     ),
-                    zoom: 19,
+                    icon: await BitmapDescriptor.fromAssetImage(
+                      const ImageConfiguration(
+                        size: Size(
+                          5,
+                          5,
+                        ),
+                      ),
+                      local.marker,
+                    ),
+                    infoWindow: InfoWindow(
+                      title: local.nomeLocal,
+                      snippet: local.tipoLocal,
+                    ),
+                    onTap: () => {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => SalaWidget(local: local),
+                      ),
+                    },
                   ),
-                  onMapCreated: _onCreatedMap,
-                  markers: markers,
-                ),
-              ],
-            );
+                );
+
+                setState(() {});
+              });
+
+              return Stack(
+                children: [
+                  GoogleMap(
+                    mapType: MapType.normal,
+                    myLocationEnabled: true,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(
+                        state.lat,
+                        state.lon,
+                      ),
+                      zoom: 19,
+                    ),
+                    onMapCreated: _onCreatedMap,
+                    markers: markers,
+                  ),
+                ],
+              );
+            }
           }
 
           return Container(
