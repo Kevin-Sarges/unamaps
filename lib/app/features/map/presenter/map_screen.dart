@@ -126,7 +126,6 @@ class _MapScreenState extends State<MapScreen> {
               title: const Text('Elevador'),
               leading: const Icon(Icons.elevator),
             ),
-            const SizedBox(width: 5),
             ListTile(
               onTap: () {
                 markers.clear();
@@ -143,6 +142,40 @@ class _MapScreenState extends State<MapScreen> {
               },
               title: const Text('Clínica'),
               leading: const Icon(Icons.medical_services_outlined),
+            ),
+            ListTile(
+              onTap: () {
+                markers.clear();
+                setState(() {
+                  _cubit.filter('Auditorio', widget.andar);
+                });
+                Navigator.pop(context);
+                Builder(
+                  builder: (context) {
+                    Scaffold.of(context).closeEndDrawer();
+                    return const SizedBox.shrink();
+                  },
+                );
+              },
+              title: const Text('Auditório'),
+              leading: const Icon(Icons.school),
+            ),
+            ListTile(
+              onTap: () {
+                markers.clear();
+                setState(() {
+                  _cubit.filter('Atendimento', widget.andar);
+                });
+                Navigator.pop(context);
+                Builder(
+                  builder: (context) {
+                    Scaffold.of(context).closeEndDrawer();
+                    return const SizedBox.shrink();
+                  },
+                );
+              },
+              title: const Text('Atendimento'),
+              leading: const Icon(Icons.school),
             ),
           ],
         ),
