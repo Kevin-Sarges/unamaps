@@ -130,7 +130,7 @@ class _MapScreenState extends State<MapScreen> {
               onTap: () {
                 markers.clear();
                 setState(() {
-                  _cubit.filter('Elevadores', widget.andar);
+                  _cubit.filter('Elevador', widget.andar);
                 });
                 Navigator.pop(context);
                 Builder(
@@ -192,6 +192,23 @@ class _MapScreenState extends State<MapScreen> {
                 );
               },
               title: const Text('Atendimento'),
+              leading: const Icon(Icons.assignment_ind_rounded),
+            ),
+            ListTile(
+              onTap: () {
+                markers.clear();
+                setState(() {
+                  _cubit.filter('Bebedouro', widget.andar);
+                });
+                Navigator.pop(context);
+                Builder(
+                  builder: (context) {
+                    Scaffold.of(context).closeEndDrawer();
+                    return const SizedBox.shrink();
+                  },
+                );
+              },
+              title: const Text('Bebedouros'),
               leading: const Icon(Icons.assignment_ind_rounded),
             ),
           ],
