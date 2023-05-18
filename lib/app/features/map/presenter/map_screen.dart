@@ -209,7 +209,7 @@ class _MapScreenState extends State<MapScreen> {
                 );
               },
               title: const Text('Bebedouros'),
-              leading: const Icon(Icons.assignment_ind_rounded),
+              leading: const Icon(Icons.water_drop),
             ),
           ],
         ),
