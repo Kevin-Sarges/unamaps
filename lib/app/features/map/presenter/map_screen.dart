@@ -107,13 +107,30 @@ class _MapScreenState extends State<MapScreen> {
                 );
               },
               title: const Text('Labs'),
-              leading: const Icon(Icons.school),
+              leading: const Icon(Icons.science),
             ),
             ListTile(
               onTap: () {
                 markers.clear();
                 setState(() {
-                  _cubit.filter('Elevador', widget.andar);
+                  _cubit.filter('Sala', widget.andar);
+                });
+                Navigator.pop(context);
+                Builder(
+                  builder: (context) {
+                    Scaffold.of(context).closeEndDrawer();
+                    return const SizedBox.shrink();
+                  },
+                );
+              },
+              title: const Text('Salas de aulas'),
+              leading: const Icon(Icons.class_),
+            ),
+            ListTile(
+              onTap: () {
+                markers.clear();
+                setState(() {
+                  _cubit.filter('Elevadores', widget.andar);
                 });
                 Navigator.pop(context);
                 Builder(
@@ -147,7 +164,7 @@ class _MapScreenState extends State<MapScreen> {
               onTap: () {
                 markers.clear();
                 setState(() {
-                  _cubit.filter('Auditorio', widget.andar);
+                  _cubit.filter('Auditório', widget.andar);
                 });
                 Navigator.pop(context);
                 Builder(
@@ -175,7 +192,7 @@ class _MapScreenState extends State<MapScreen> {
                 );
               },
               title: const Text('Atendimento'),
-              leading: const Icon(Icons.school),
+              leading: const Icon(Icons.assignment_ind_rounded),
             ),
           ],
         ),
