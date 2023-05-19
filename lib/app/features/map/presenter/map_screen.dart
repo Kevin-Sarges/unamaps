@@ -62,23 +62,6 @@ class _MapScreenState extends State<MapScreen> {
               onTap: () {
                 markers.clear();
                 setState(() {
-                  _cubit.getUserPosition(widget.andar);
-                });
-                Navigator.pop(context);
-                Builder(
-                  builder: (context) {
-                    Scaffold.of(context).closeEndDrawer();
-                    return const SizedBox.shrink();
-                  },
-                );
-              },
-              title: const Text('Todos'),
-              leading: const Icon(Icons.add_location),
-            ),
-            ListTile(
-              onTap: () {
-                markers.clear();
-                setState(() {
                   _cubit.filter('Banheiros', widget.andar);
                 });
                 Navigator.pop(context);
